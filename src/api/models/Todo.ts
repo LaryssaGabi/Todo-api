@@ -9,7 +9,7 @@ export interface ITodo extends mongoose.Document {
 const todoSchema = new mongoose.Schema({
     task: {
         type: String,
-        require: true
+        required: true
     },
     finished: {
         type: Boolean,
@@ -23,4 +23,4 @@ const todoSchema = new mongoose.Schema({
 
 const Todo = mongoose.model<ITodo>('Todo', todoSchema)
 
-export default new Todo;
+export default Todo

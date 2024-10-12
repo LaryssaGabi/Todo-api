@@ -1,5 +1,9 @@
-import { Router } from "express";
+import { Router } from 'express';
+import TodoController from '../api/controllers/todoController'; 
 
-const router = Router()
+const router = Router();
 
-export default router
+router.post('/todos', TodoController.create);
+router.get('/todos', TodoController.getAll);
+
+export { router };
