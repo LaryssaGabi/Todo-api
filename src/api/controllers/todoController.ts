@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Todo from '../models/Todo'; // Ajuste o caminho conforme a estrutura do seu projeto
+import Todo from '../models/Todo';
 
 class TodoController {
     // Criar uma nova tarefa
@@ -28,11 +28,13 @@ class TodoController {
     async update(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const updatedTodo = await Todo.findByIdAndUpdate(id, req.body, { new: true });
-            if (!updatedTodo) {
-                return res.status(404).json({ message: 'Todo not found' });
-            }
-            res.status(200).json(updatedTodo);
+            const { finished } = req.body
+
+            await Todo.findByIdAndUpdate(id, { finished });
+            const todo = await  Todo.findById(id)
+
+            res.status(200).json(todo);
+
         } catch (error) {
             res.status(500).json({ message: 'Error updating todo', error });
         }
@@ -42,11 +44,9 @@ class TodoController {
     async delete(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const deletedTodo = await Todo.findByIdAndDelete(id);
-            if (!deletedTodo) {
-                return res.status(404).json({ message: 'Todo not found' });
-            }
-            res.status(204).send(); // No content
+            await Todo.findByIdAndDelete(id);
+            res.status(200).json({ message: 'Todo deleted successfully' });
+
         } catch (error) {
             res.status(500).json({ message: 'Error deleting todo', error });
         }
