@@ -6,7 +6,7 @@ class Database {
     }
 
     mongo() {
-        mongoose.connect('mongodb://localhost:27018/to-do').then(() => {
+        mongoose.connect('mongodb://mongo:vXNVgqiKvkyizqxoXePAOxvJgisSEJPx@autorack.proxy.rlwy.net:47929').then(() => {
             console.log('Connected to MongoDB')
         }).catch((err) => {
             console.log('Error: ' + err)
